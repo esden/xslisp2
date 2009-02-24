@@ -200,7 +200,7 @@ void rcx_input_handler(const unsigned char *buf, unsigned char len, unsigned cha
 {
     unsigned char *rcxrdbufp = &rcx_rdbuf[2];
     int i;
-    
+
     // Ignore data if buffer is locked
     if( rcx_rdbuf_ready && rcx_data_mode == RCX_MODE_LOCK )
         return;
@@ -227,7 +227,7 @@ static int transmit1(int ntries) {
 
 static void rcx_transmit(unsigned char dest) {
     int len = wtbufp - wtbuf;
-    
+
     lnp_addressing_write(wtbuf, len, dest, RCX_DATA_PORT);
     wtbufp = wtbuf;
 }
@@ -403,10 +403,10 @@ void write2(object e1, object e2, object cmd) {
 
 #ifdef IRCOM
 
-object rcx_write(object e) 
+object rcx_write(object e)
 {
     object c, rv;
-    
+
     wtbufp = wtbuf;
     rv = e;
     //if( INTP(e) )
@@ -436,10 +436,10 @@ object rcx_read()
     object result, x;
     int i;
     const unsigned char *rcx_rdbufp = &rcx_rdbuf[2];
-    
+
     if( !rcx_rdbuf_ready || rcx_rdbuf[1] == 0 )
         return ERR;
-    
+
     x = result = make_cons( (rcx_rdbufp[0] | rcx_rdbufp[1] << 8), NIL );
     for( i=2; i<rcx_rdbuf[1]; i+=2, x = CDR(x) )
         CDR(x) = make_cons( (rcx_rdbufp[i] | rcx_rdbufp[i+1] << 8), NIL);
@@ -1594,13 +1594,17 @@ LOOP:
 			Eerror(EXunsupported_rcx_fun, fun);
 			goto LERROR;
 #endif
-            
+
 #ifdef IRCOM
         case Ltransmit:
             {
                 int destination = ((INTval(base[0]) & 0x0f) << 4) | RCX_DATA_PORT;
                 e = base[1];
-                rcx_write( e );
+                if( rcx_write( e ) == ERR )
+                {
+                    Eerror( EXtransmit_error, e );
+                    goto LERROR;
+                }
                 rcx_transmit( destination );
                 break;
             }

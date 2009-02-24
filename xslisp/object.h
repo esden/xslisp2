@@ -340,4 +340,5 @@ typedef enum {
 	EXvs_overflow,
 	EXstack_overflow,
 	EXfront_error,
+    EXtransmit_error
 } error_index;

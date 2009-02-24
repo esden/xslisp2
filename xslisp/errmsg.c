@@ -38,6 +38,7 @@ char *error_message(int id) {
 	case EXvs_overflow: return "RCX value stack overflow";
 	case EXstack_overflow: return "RCX C stack overflow";
 	case EXfront_error: return "front-end error"; // never used
+    case EXtransmit_error: return "cannot trasmit";
 	default: return "unknown error number";
 	}
 }
