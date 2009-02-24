@@ -1,0 +1,48 @@
+wtbufp = rdbuf;
+wt(0x00008403); //special form let(0)
+wt(0x00009403); //special form hoist(0)
+wtCMD(CMDNIL);
+wtCMD(CMDCONS);
+wtCMD(CMDLIST1);
+wt(0x00007e03); //special form set!(0)
+wt(0x00007c0d); //VrefCAR(1) or symbol lambda
+wt(0x00007c0b); //special form lambda(1)
+wt(0x00000007); //integer 0
+wt(0x00008403); //special form let(0)
+wt(0x00000007); //integer 0
+wtCMD(CMDLIST1);
+wt(0x00009803); //special form tail-call(0)
+wt(0x00007e05); //VrefCCB(0) or symbol set!
+wtCMD(CMDLIST2);
+wtCMD(CMDLIST3);
+wtCMD(CMDLIST3);
+wtCMD(CMDLISTA2);
+wt(0x00007c0d); //VrefCAR(1) or symbol lambda
+wtCMD(CMDLIST1);
+wtCMD(CMDLIST4);
+wtCMD(CMDEVAL);
+print_result(toplevel());
+vs_top = value_stack;
+
+wtbufp = rdbuf;
+wt(0x00008403); //special form let(0)
+wt(0x00009403); //special form hoist(0)
+wtCMD(CMDNIL);
+wtCMD(CMDCONS);
+wtCMD(CMDLIST1);
+wt(0x00007e03); //special form set!(0)
+wt(0x00007c0d); //VrefCAR(1) or symbol lambda
+wt(0x00007c0b); //special form lambda(1)
+wt(0x00000007); //integer 0
+wt(0x00009803); //special form tail-call(0)
+wt(0x00007e05); //VrefCCB(0) or symbol set!
+wtCMD(CMDLIST2);
+wtCMD(CMDLIST3);
+wtCMD(CMDLISTA2);
+wt(0x00007c0d); //VrefCAR(1) or symbol lambda
+wtCMD(CMDLIST1);
+wtCMD(CMDLIST4);
+wtCMD(CMDEVAL);
+print_result(toplevel());
+vs_top = value_stack;
+

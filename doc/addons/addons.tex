@@ -1,0 +1,80 @@
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\lstset{language=lisp,escapechar=/}
+
+\begin{document}
+
+\section{Zugriff auf Analogports}
+
+\begin{itemize}
+\item
+  \begin{lstlisting}
+    (port-on /\emph{int}/)
+  \end{lstlisting}
+  Setzt den Port mit Nummer \emph{int} auf aktiv.
+\item
+  \begin{lstlisting}
+    (port-off /\emph{int}/)
+  \end{lstlisting}
+  Setzt den Port mit Nummer \emph{int} auf passiv.
+\item
+  \begin{lstlisting}
+    (port /\emph{int}/)
+  \end{lstlisting}
+  Liest den Port mit nummer \emph{int} aus.
+\end{itemize}
+
+\section{Kommunikation RCX -- RCX}
+
+\begin{itemize}
+\item
+  \begin{lstlisting}
+    (set-receive-mode /\emph{int}/)
+  \end{lstlisting}
+  Setzt den Empfangsmodus und gibt den alten Empfangsmodus zur\"uck. 
+  Dabei sind zwei verschiedene Modi m\"oglich:
+  \begin{itemize}
+  \item \verb+:lock+ (Wert 0): Ein Paket im Empfangsbuffer wird nicht 
+    \"uberschrieben. Neu empfangene Pakete werden so lange
+    verworfen bis der Empfangspuffer ausgelesen wurde (\emph{receive}) oder
+    entsperrt wurde (\emph{unlock-receive-buffer})
+  \item \verb+:overwrite+ (Wert 1):.Ein neues Paket \"uberschreibt
+    alte Pakete im Empfangsbuffer immer.
+  \end{itemize}
+\item
+  \begin{lstlisting}
+    (get-receive-mode)
+  \end{lstlisting}
+  Gibt den aktuellen Empfangsmodus zur\"uck.
+\item
+  \begin{lstlisting}
+    (unlock-receive-buffer)
+  \end{lstlisting}
+  Gibt den Empfangsbuffer frei, damit neue Pakete im Empfangsmodus \verb+:lock+
+  empfangen werden k\"onnen.
+\item
+  \begin{lstlisting}
+    (transmit /\emph{int}/ /\emph{list}/)
+  \end{lstlisting}
+  \"Ubertr\"agt die Liste \emph{list} an den RCX mit der Adresse \emph{int}.
+  \emph{list} darf keine verschachtelte Liste sein.
+\item
+  \begin{lstlisting}
+    (input?)
+  \end{lstlisting}
+  Liefert \verb+#t+ zur\"uck, wenn ein Paket im Empfangsbuffer liegt, ansonsten
+  \verb+#f+.
+\item
+  \begin{lstlisting}
+    (receive)
+  \end{lstlisting}
+  Wartet auf ein Paket im Empfangsbuffer (falls nicht bereits ein Paket vorliegt) und
+  liefert die empfangene Liste zur\"uck. Der Empfangsbuffer wird dabei automatisch frei
+  gegeben.
+\end{itemize}
+\end{document}
+

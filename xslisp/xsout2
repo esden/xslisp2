@@ -1,0 +1,17 @@
+wtbufp = rdbuf;
+wt(0x4701); //special form with-watcher(0)
+wt(0x0007); //integer 1
+wt(0x000b); //integer 2
+wtCMD(CMDLIST2);
+wt(0x000f); //integer 3
+wt(0x0013); //integer 4
+wtCMD(CMDLIST2);
+wtCMD(CMDLIST2);
+wt(0x0017); //integer 5
+wt(0x001b); //integer 6
+wtCMD(CMDLIST4);
+wtCMD(CMDEVAL);
+toplevel();
+//assert(last_val==valINT(0));
+vs_top = value_stack;
+
