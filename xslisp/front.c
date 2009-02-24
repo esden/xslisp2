@@ -613,6 +613,10 @@ void initGlobals() {
     def("sender", MKCONST(Lsender,0,0,0));
     def("receive", MKCONST(Lreceive,0,0,0));
     def("input?", MKCONST(Linput,0,0,0));
+    def("set-lnp-mode", MKCONST(Lset_lnp_mode,1,0,0));
+    def("lnp-far-mode?", MKCONST(Llnp_far_mode,0,0,0));
+    def("set-host-addr", MKCONST(Lset_host_addr,1,0,0));
+    def("get-host-addr", MKCONST(Lget_host_addr,0,0,0));
 
 	Squote = def("quote", MKSPECIAL(Fquote));
 	Slambda = def("lambda", MKSPECIAL(Flambda));
@@ -1064,6 +1068,8 @@ void initReader() {
 	defReaderConstant("max-speed", 255);
     defReaderConstant("lock", RCX_MODE_LOCK);
     defReaderConstant("overwrite", RCX_MODE_OVERWRITE);
+    defReaderConstant("far", RCX_FAR_MODE);
+    defReaderConstant("near", RCX_NEAR_MODE);
 
 	defReaderConstant("white", 98);
 	defReaderConstant("black", 0);

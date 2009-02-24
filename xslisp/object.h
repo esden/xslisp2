@@ -124,6 +124,8 @@ typedef int object;
 
 #define RCX_MODE_LOCK 0
 #define RCX_MODE_OVERWRITE 1
+#define RCX_FAR_MODE 1
+#define RCX_NEAR_MODE 0
 
 // COMMAND index
 typedef enum {
@@ -289,7 +291,7 @@ typedef enum {
 	Lwrite_char,
 	Lread_line,
 	Lwrite_string,
-    
+
     // RCX <-> RCX communication functions
     Ltransmit,
     Lset_receive_mode,
@@ -298,6 +300,10 @@ typedef enum {
     Lsender,
     Lreceive,
     Linput,
+    Lset_lnp_mode,
+    Llnp_far_mode,
+    Lset_host_addr,
+    Lget_host_addr,
 
 	Fstart,
 	Fquote = Fstart, Vref = Fstart,

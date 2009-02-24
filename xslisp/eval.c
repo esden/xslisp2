@@ -178,6 +178,35 @@ unsigned char rcx_data_mode = RCX_MODE_OVERWRITE;
 
 int ack_flag = 0;
 
+/* Copied from lnp-logical.h where it is not used because of
+   some strange defines. */
+
+//! Set the IR transmitter range
+/*! Configure the INFRARED transmitter power
+ *  \param far:  0: sets short range, 1: sets long range
+ *  \return Nothing
+ *
+ *  NOTE1: this setting remains in effect until changed or
+ *  the RCX power is turned off.
+ *
+ *  NOTE2: toggles port 4 bit 0
+ *  \todo determine what clears this and then correct NOTE1
+*/
+void lnp_logical_range(int far) {
+  if(far)
+    *((char*)&PORT4) &=~1;
+  else
+    *((char*)&PORT4) |=1;
+}
+
+//! Test the IR transmitter range setting
+/*! Determine if the INFRARED transmitter power is set to long range
+ *  \return T/F where TRUE means transmitter is set to long range
+*/
+int lnp_logical_range_is_far(void) {
+  return !(*((char*)&PORT4)&1);
+}
+
 void input_handler(const unsigned char *buf, unsigned char len,
                     unsigned char src)
 {
@@ -1631,6 +1660,20 @@ LOOP:
         case Linput:
             e = rcx_rdbuf_ready ? TRUE : FALSE;
             break;
+        case Lset_lnp_mode:
+            e = valINT( lnp_logical_range_is_far() );
+            lnp_logical_range( INTval( base[0] ) );
+            break;
+        case Llnp_far_mode:
+            e = valINT( lnp_logical_range_is_far() );
+            break;
+        case Lset_host_addr:
+            e = valINT( lnp_hostaddr >> 4 );
+            lnp_set_hostaddr( INTval( base[0] ) );
+            break;
+        case Lget_host_addr:
+            e = valINT( lnp_hostaddr >> 4 );
+            break;
 
 #else
        case Ltransmit:
@@ -1643,7 +1686,7 @@ LOOP:
            goto LERROR;
 #endif
 
-            
+
 		default:
 			Eerror(EXbaboon, fun);
 			goto LERROR;
