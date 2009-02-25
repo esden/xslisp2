@@ -35,10 +35,10 @@
   \begin{lstlisting}
     (set-receive-mode /\emph{int}/)
   \end{lstlisting}
-  Setzt den Empfangsmodus und gibt den alten Empfangsmodus zur\"uck. 
+  Setzt den Empfangsmodus und gibt den alten Empfangsmodus zur\"uck.
   Dabei sind zwei verschiedene Modi m\"oglich:
   \begin{itemize}
-  \item \verb+:lock+ (Wert 0): Ein Paket im Empfangsbuffer wird nicht 
+  \item \verb+:lock+ (Wert 0): Ein Paket im Empfangsbuffer wird nicht
     \"uberschrieben. Neu empfangene Pakete werden so lange
     verworfen bis der Empfangspuffer ausgelesen wurde (\emph{receive}) oder
     entsperrt wurde (\emph{unlock-receive-buffer})
@@ -72,9 +72,36 @@
   \begin{lstlisting}
     (receive)
   \end{lstlisting}
-  Wartet auf ein Paket im Empfangsbuffer (falls nicht bereits ein Paket vorliegt) und
-  liefert die empfangene Liste zur\"uck. Der Empfangsbuffer wird dabei automatisch frei
-  gegeben.
+  Wartet auf ein Paket im Empfangsbuffer (falls nicht bereits ein
+  Paket vorliegt) und liefert die empfangene Liste zur\"uck. Der
+  Empfangsbuffer wird dabei automatisch freigegeben.
+\item
+  \begin{lstlisting}
+    (set-lnp-mode /\emph{int}/)
+  \end{lstlisting}
+  Setzt den Kommunikationsmodus auf den angegebenen wert. Folgende
+  zwei Modi sind m\"oglich:
+  \begin{itemize}
+  \item \verb+:far+ (Wert 1): Konfiguration f\"ur groﬂe Reichweite.
+  \item \verb+:near+ (Wert 0): Konfiguration f\"ur niedrige
+    Reichweite.
+  \end{itemize}
+  Der R\"uckgabewert ist der vorherige Kommunikationsmodus.
+\item
+  \begin{lstlisting}
+    (lnp-far-mode?)
+  \end{lstlisting}
+  Liefert \verb+#t+ zur\"uck, wenn der aktuelle Kommunikationsmodus
+  \verb+:far+ ist, ansonsten \verb+#f+.
+\item
+  \begin{lstlisting}
+    (set-host-addr /\emph{int}/)
+  \end{lstlisting}
+  Setzt die Hostadresse, unter der der Brick erreichbar ist.
+\item
+  \begin{lstlisting}
+    (get-host-addr)
+  \end{lstlisting}
+  Liefert die aktuelle Hostadresse.
 \end{itemize}
 \end{document}
-
