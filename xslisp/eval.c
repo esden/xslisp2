@@ -1682,6 +1682,10 @@ LOOP:
        case Lunlock_receive_buffer:
        case Lreceive:
        case Linput:
+       case Lset_lnp_mode:
+       case Llnp_far_mode:
+       case Lset_host_addr:
+       case Lget_host_addr:
            Eerror(EXunsupported_rcx_fun, fun);
            goto LERROR;
 #endif
