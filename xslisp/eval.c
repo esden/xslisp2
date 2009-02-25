@@ -1665,7 +1665,7 @@ LOOP:
             lnp_logical_range( INTval( base[0] ) );
             break;
         case Llnp_far_mode:
-            e = valINT( lnp_logical_range_is_far() );
+            e = lnp_logical_range_is_far() ? TRUE : FALSE;
             break;
         case Lset_host_addr:
             e = valINT( lnp_hostaddr >> 4 );
